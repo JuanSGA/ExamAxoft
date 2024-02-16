@@ -3,16 +3,20 @@
   "WorkspaceRootPath": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|solutionrelative:facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1B867F8B-E524-42CB-BAAB-0860F44B9B01}|FacturasAxoftTest\\FacturasAxoftTest.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxofttest\\facturasaxofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1B867F8B-E524-42CB-BAAB-0860F44B9B01}|FacturasAxoftTest\\FacturasAxoftTest.csproj|solutionrelative:facturasaxofttest\\facturasaxofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoft\\resources\\ejemplo.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|solutionrelative:facturasaxoft\\resources\\ejemplo.xml||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoft\\facturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|solutionrelative:facturasaxoft\\facturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|solutionrelative:facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,17 +26,30 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 1,
+              "Title": "Ejemplo.xml",
+              "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Resources\\Ejemplo.xml",
+              "RelativeDocumentMoniker": "FacturasAxoft\\Resources\\Ejemplo.xml",
+              "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Resources\\Ejemplo.xml",
+              "RelativeToolTip": "FacturasAxoft\\Resources\\Ejemplo.xml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAsAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2024-02-16T08:23:42.618Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "FacturasAxoftTests.cs",
               "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftTest\\FacturasAxoftTests.cs",
               "RelativeDocumentMoniker": "FacturasAxoftTest\\FacturasAxoftTests.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftTest\\FacturasAxoftTests.cs",
               "RelativeToolTip": "FacturasAxoftTest\\FacturasAxoftTests.cs",
-              "ViewState": "AQIAALIAAAAAAAAAAAAmwLQAAAAXAAAA",
+              "ViewState": "AQIAALIAAAAAAAAAAAAmwMUAAAADAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:59:08.929Z",
               "EditorCaption": ""
@@ -45,20 +62,20 @@
               "RelativeDocumentMoniker": "FacturasAxoft\\FacturasAxoft.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\FacturasAxoft.cs",
               "RelativeToolTip": "FacturasAxoft\\FacturasAxoft.cs",
-              "ViewState": "AQIAAK4BAAAAAAAAAAAAALMBAABIAAAA",
+              "ViewState": "AQIAAI4AAAAAAAAAAAAowJUAAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:48:29.603Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftConsole\\Program.cs",
               "RelativeDocumentMoniker": "FacturasAxoftConsole\\Program.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftConsole\\Program.cs",
               "RelativeToolTip": "FacturasAxoftConsole\\Program.cs",
-              "ViewState": "AQIAABAAAAAAAAAAAAAcwBkAAAA4AAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABvAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:38:21.404Z",
               "EditorCaption": ""

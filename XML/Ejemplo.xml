@@ -55,31 +55,54 @@
         <importeIva>15.75</importeIva>
         <totalConImpuestos>90.75</totalConImpuestos>
     </factura>
-    
-    <!-- Repite la estructura para las facturas 3 a 20 con datos únicos -->
-    
-    <!-- Factura 20 -->
-    <factura>
-        <numero>20</numero>
-        <fecha>15/01/2021</fecha>
-        <cliente>
-            <CUIL>90876543210</CUIL>
-            <nombre>Luis Rodríguez</nombre>
-            <direccion>Plaza 789, Ciudad</direccion>
-        </cliente>
-        <renglones>
-            <renglon>
-                <codigoArticulo>AR020</codigoArticulo>
-                <descripcion>Producto 20</descripcion>
-                <precioUnitario>25.00</precioUnitario>
-                <cantidad>1</cantidad>
-                <total>25.00</total>
-            </renglon>
-            <!-- Más renglones aquí -->
-        </renglones>
-        <totalSinImpuestos>25.00</totalSinImpuestos>
-        <iva>21.00</iva>
-        <importeIva>5.25</importeIva>
-        <totalConImpuestos>20.25</totalConImpuestos>
-    </factura>
+
+	<!-- Factura 3 -->
+	<factura>
+		<numero>3</numero>
+		<fecha>02/01/2021</fecha>
+		<cliente>
+			<CUIL>30560000123</CUIL>
+			<nombre>María Gómez</nombre>
+			<direccion>Avenida 456, Ciudad</direccion>
+		</cliente>
+		<renglones>
+			<renglon>
+				<codigoArticulo>AR003</codigoArticulo>
+				<descripcion>Producto 3</descripcion>
+				<precioUnitario>15.00</precioUnitario>
+				<cantidad>5</cantidad>
+				<total>75.00</total>
+			</renglon>
+			<!-- Más renglones aquí -->
+		</renglones>
+		<totalSinImpuestos>75.00</totalSinImpuestos>
+		<iva>21.00</iva>
+		<importeIva>15.75</importeIva>
+		<totalConImpuestos>90.75</totalConImpuestos>
+	</factura>
+
+	<!-- Factura 4 -->
+	<factura>
+		<numero>4</numero>
+		<fecha>07/01/2021</fecha>
+		<cliente>
+			<CUIL>30111890123</CUIL>
+			<nombre>María Gómez</nombre>
+			<direccion>Avenida 456, Ciudad</direccion>
+		</cliente>
+		<renglones>
+			<renglon>
+				<codigoArticulo>AR003</codigoArticulo>
+				<descripcion>Producto 3</descripcion>
+				<precioUnitario>15.00</precioUnitario>
+				<cantidad>5</cantidad>
+				<total>75.00</total>
+			</renglon>
+			<!-- Más renglones aquí -->
+		</renglones>
+		<totalSinImpuestos>75.00</totalSinImpuestos>
+		<iva>21.00</iva>
+		<importeIva>15.75</importeIva>
+		<totalConImpuestos>90.75</totalConImpuestos>
+	</factura>
 </facturas>

@@ -5,7 +5,7 @@ Console.WriteLine("Inicio: Facturas Axoft");
 
 
 // Ruta del archivo XML
-string xmlFilePath = "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoft\\Resources\\Ejemplo.xml";
+string xmlFilePath = "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Resources\\Ejemplo.xml";
 
 // Connection String de la base de datos
 string connectionString = "Data Source=DESKTOP-FVKVQV3\\JUANSGA;Initial Catalog=AxoftExam;Integrated Security=True;";
@@ -26,7 +26,7 @@ facturasAxoft.CargarFacturas(xmlFilePath);
 Console.WriteLine(facturasAxoft.Get3ArticulosMasVendidos());
 Console.WriteLine(facturasAxoft.Get3Compradores());
 Console.WriteLine(facturasAxoft.GetPromedioYArticuloMasCompradoDeCliente("23333457789"));
-Console.WriteLine(facturasAxoft.GetTotalYPromedioFacturadoPorFecha("30-12-2020"));
+Console.WriteLine(facturasAxoft.GetTotalYPromedioFacturadoPorFecha("31-12-2020"));
 Console.WriteLine(facturasAxoft.GetTop3ClientesDeArticulo("AR001"));
 Console.WriteLine(facturasAxoft.GetTotalIva("30-12-2020", "30-12-2023"));
 

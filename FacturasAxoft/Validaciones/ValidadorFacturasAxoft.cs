@@ -1,24 +1,17 @@
 ﻿using FacturasAxoft.Clases;
 using FacturasAxoft.Excepciones;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace FacturasAxoft.Validaciones
 {
-    /// <summary>
-    /// En esta clase implementarán todas las validaciones.
-    /// Se da una validación ya implementada a modo de ejemplo.
-    /// </summary>
     public class ValidadorFacturasAxoft
     {
         private readonly List<Cliente> clientes;
         private readonly List<Articulo> articulos;
         private readonly List<Factura> facturas;
 
-        /// <summary>
-        /// Instancia un Validador facturas
-        /// </summary>
-        /// <param name="clientes">Clientes preexistentes, ya grabados en la base de datos</param>
-        /// <param name="articulos">Artículos preexistentes, ya grabados en la base de datos</param>
-        /// <param name="facturas">Facturas preexistentes, ya grabadas en la base de datos</param></param>
         public ValidadorFacturasAxoft(List<Cliente> clientes, List<Articulo> articulos, List<Factura> facturas)
         {
             this.clientes = clientes;
@@ -26,17 +19,109 @@ namespace FacturasAxoft.Validaciones
             this.facturas = facturas;
         }
 
-        /// <summary>
-        /// Valida la factura pasada por parámetro según lo lógica de negocios requerida.
-        /// </summary>
-        /// <param name="factura">Factura a validar</param>
-        /// <exception>En caso de que la factura no cumpla con las reglas de negocio requeridas
-        /// debe lanzar una excepción con el mensaje de error correspondiente</exception>/// 
         public void ValidarNuevaFactura(Factura factura)
         {
-            if (facturas.Any(f => f.Fecha > factura.Fecha))
+            ValidarCUIL(factura);
+            ValidarArticulosRenglones(factura);
+            ValidarTotalesRenglones(factura);
+            ValidarPorcentajeIVA(factura);
+            ValidarImporteIVA(factura);
+            ValidarTotalConImpuestos(factura);
+        }
+
+
+        /************VALIDACION 4) El CUIL debe ser válido. (Validacion basica, por una mas compleja me estaba rompiendo el regex)*******************/
+
+        public void ValidarCUIL(Factura factura)
+        {
+            if (!EsCUILValido(factura.Cliente.Cuil))
             {
-                throw new FacturaConFechaInvalidaException();
+                throw new FacturaCUILInvalidoException();
+            }
+        }
+        public bool EsCUILValido(string cuil)
+        {
+            // Eliminar espacios en blanco
+            cuil = cuil.Replace(" ", "");
+
+            // Verificar la longitud correcta (debería ser 11 caracteres)
+            if (cuil.Length != 11)
+            {
+                return false;
+            }
+
+            // Verificar si todos los caracteres son dígitos
+            if (!cuil.All(char.IsDigit))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /***************************FIN VALIDACION 4**************************************/
+
+
+        private void ValidarArticulosRenglones(Factura factura)
+        {
+            foreach (var renglon in factura.Renglones)
+            {
+                if (!articulos.Any(a => a.Id == renglon.Articulo.Id))
+                {
+                    throw new FacturaArticuloInexistenteException();
+                }
+            }
+        }
+
+        private void ValidarTotalesRenglones(Factura factura)
+        {
+            foreach (var renglon in factura.Renglones)
+            {
+                if (renglon.Total != renglon.Cantidad * renglon.Articulo.Precio)
+                {
+                    throw new FacturaTotalRenglonInvalidoException();
+                }
+            }
+        }
+
+        private void ValidarPorcentajeIVA(Factura factura)
+        {
+
+            if (!ValidarPorcentajeIVA(factura.Iva))
+            {
+                throw new FacturaPorcentajeIVAInvalidoException();
+            }
+
+        }
+
+        private bool ValidarPorcentajeIVA(decimal porcentajeIVA)
+        {
+            // Implementar lógica de validación del porcentaje de IVA según requisitos específicos
+            return porcentajeIVA == 0 || porcentajeIVA == 10.5m || porcentajeIVA == 21m || porcentajeIVA == 27m;
+        }
+
+        private void ValidarImporteIVA(Factura factura)
+        {
+            foreach (var renglon in factura.Renglones)
+            {
+                decimal ivaCalculado = renglon.Total * (factura.Iva / 100);
+                if (factura.ImporteIva != ivaCalculado)
+                {
+                    throw new FacturaImporteIVAInvalidoException();
+                }
+            }
+        }
+
+        private void ValidarTotalConImpuestos(Factura factura)
+        {
+            decimal totalSinImpuestos = factura.Renglones.Sum(r => r.Total);
+            decimal totalConImpuestos = totalSinImpuestos + factura.Renglones.Sum(r => factura.ImporteIva);
+            foreach (var renglon in factura.Renglones)
+            {
+                if (renglon.Total != totalConImpuestos)
+                {
+                    throw new FacturaTotalConImpuestosInvalidoException();
+                }
             }
         }
     }

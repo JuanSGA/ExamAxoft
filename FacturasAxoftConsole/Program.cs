@@ -1,50 +1,37 @@
-﻿// See https://aka.ms/new-console-template for more information
+﻿using FacturasAxoft.Clases;
+using System.Collections.Generic;
+
 Console.WriteLine("Inicio: Facturas Axoft");
 
-string connectionString = args[0];
-Console.WriteLine($"connectionString: {connectionString}");
-FacturasAxoft.FacturasAxoft facturasAxoft = new(connectionString);
 
-string metodo = args[1];
-Console.WriteLine($"metodo: {metodo}");
-string result = "OK";
-switch (metodo)
-{
-	case "CargarFacturas":
-        string path= args[2];
-        Console.WriteLine($"path: {path}");
-        facturasAxoft.CargarFacturas(path);
-        break;
-    case "Get3ArticulosMasVendidos":
-        result = facturasAxoft.Get3ArticulosMasVendidos();
-        break;
-    case "Get3Compradores":
-        result = facturasAxoft.Get3Compradores();
-        break;
-    case "GetPromedioYArticuloMasCompradoDeCliente":
-        string cuil = args[2];
-        Console.WriteLine($"cuil: {cuil}");
-        result = facturasAxoft.GetPromedioYArticuloMasCompradoDeCliente(cuil);
-        break;
-    case "GetTotalYPromedioFacturadoPorFecha":
-        string fecha = args[2];
-        Console.WriteLine($"fecha: {fecha}");
-        facturasAxoft.GetTotalYPromedioFacturadoPorFecha(fecha);
-        break;
-    case "GetTop3ClientesDeArticulo":
-        string codigoArticulo = args[2];
-        Console.WriteLine($"codigoArticulofecha: {codigoArticulo}");
-        result = facturasAxoft.GetTop3ClientesDeArticulo(codigoArticulo);
-        break;
-    case "GetTotalIva":
-        string fechaDesde = args[2];
-        string fechaHasta = args[3];
-        Console.WriteLine($"fechaDesde: {fechaDesde}");
-        Console.WriteLine($"fechaHasta: {fechaHasta}");
-        result = facturasAxoft.GetTotalIva(fechaDesde, fechaHasta);
-        break;
-    default:
-		break;
-}
-Console.WriteLine($"result: {result}");
+// Ruta del archivo XML
+string xmlFilePath = "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoft\\Resources\\Ejemplo.xml";
+
+// Connection String de la base de datos
+string connectionString = "Data Source=DESKTOP-FVKVQV3\\JUANSGA;Initial Catalog=AxoftExam;Integrated Security=True;";
+
+
+// Crear instancias de las listas de clientes, artículos y facturas
+List<Cliente> clientes = new List<Cliente>();
+List<Articulo> articulos = new List<Articulo>();
+List<Factura> facturas = new List<Factura>();
+
+// Crear una instancia de FacturasAxoft con todas las listas
+FacturasAxoft.FacturasAxoft facturasAxoft = new FacturasAxoft.FacturasAxoft(connectionString, clientes, articulos, facturas);
+
+// Llamar al método CargarFacturas para grabar los datos en la base de datos
+facturasAxoft.CargarFacturas(xmlFilePath);
+
+
+Console.WriteLine(facturasAxoft.Get3ArticulosMasVendidos());
+Console.WriteLine(facturasAxoft.Get3Compradores());
+Console.WriteLine(facturasAxoft.GetPromedioYArticuloMasCompradoDeCliente("23333457789"));
+Console.WriteLine(facturasAxoft.GetTotalYPromedioFacturadoPorFecha("30-12-2020"));
+Console.WriteLine(facturasAxoft.GetTop3ClientesDeArticulo("AR001"));
+Console.WriteLine(facturasAxoft.GetTotalIva("30-12-2020", "30-12-2023"));
+
+
+
+Console.WriteLine("Proceso completado con éxito.");
+
 Console.WriteLine("Fin: Facturas Axoft");

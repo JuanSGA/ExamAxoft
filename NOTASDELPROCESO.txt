@@ -1,0 +1,28 @@
+¡Hola! Mucho gusto.
+
+IMPORTANTE:
+A destacar =) No tenía conocimientos previos sobre el desarrollo de consolas en .NET. Mi experiencia se basa principalmente en desarrollo web (MVC), y nunca trabajé con formato XML, sí con JSON.
+
+Agradezco mucho la oportunidad y disposición para enviarme el examen técnico.
+
+Comento el procedimiento para realizar el examen:
+
+1.Leer el enunciado.
+
+2.Clonar repositorio e intentar compilarlo.
+-Problemas:
+Perdí aproximadamente 3/4 horas por problemas con el dotnet .NET, ya que mi PC de escritorio no se utiliza para programar; utilizo la notebook del trabajo. Luego de lidiar con los errores de compilación, la opción más fácil fue reinstalar Visual Studio 2022 desde cero. También fui forzado a eliminar todas las carpetas dotnet y el caché del Visual Studio, dejando solamente la versión .NET 8; gracias a esto, se pudo solucionar.
+
+3.Logré compilar el proyecto y me figuraron los primeros errores del aplicativo, como el connection string, entre otras cositas.
+
+4.Comencé a solucionar los errores y a cambiar un poquito el código para que compile de la forma más rápida posible.
+
+5.Por falta de tiempo, realicé todo en una rama develop local en mi máquina, donde realicé la mayoría de los ítems del enunciado. Una vez que obtuve una versión estable, comencé a migrar el código en fragmentos a mi rama develop del repositorio GitHub en diferentes commits.
+
+6.Realicé el modelado de la base de datos y luego el modelado de las clases.
+
+7.En cuanto a las validaciones, la forma más rápida de realizarlas fue optar por hacer las primeras 3 validaciones en la clase FacturasAxoft.cs. Aunque no es lo ideal, al tener que trabajar los datos del foreach de cada pasada, me pareció una forma rápida de resolverlo. Todo puede mejorarse y optimizarse para que estén en la clase correspondiente de validaciones (no me enorgullece), pero las validaciones funcionan.
+
+8.En el tema de los test unitarios, realicé 5 exitosos de 6; el sexto lo dejé comentado.
+
+Espero que el proyecto cumpla con las expectativas. No pude realizar pruebas completas como me hubiera gustado, ya que entre en horario laboral y no pude continuar con el proyecto. Quedo totalmente a disposición para poder así trabajar juntos en alguna oportunidad. ¡Saludos!

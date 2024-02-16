@@ -372,5 +372,32 @@ namespace FacturasAxoft
         }
 
 
+        public string GetTotalYPromedioFacturadoPorFecha(string fecha)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT SUM(F.TotalConImpuestos) AS TotalFacturado, AVG(F.TotalConImpuestos) AS PromedioFactura " +
+                               "FROM Factura F " +
+                               "WHERE F.Fecha = @Fecha";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Fecha", DateTime.ParseExact(fecha, "dd-MM-yyyy", CultureInfo.InvariantCulture));
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = "Total facturado y promedio de importes de factura para una fecha:\n";
+
+                    if (reader.Read())
+                    {
+                        result += $"Total Facturado: {reader["TotalFacturado"]}\n";
+                        result += $"Promedio de Factura: {reader["PromedioFactura"]}\n";
+                    }
+                    Console.WriteLine(result);
+                    return result;
+                }
+            }
+        }
+
     }
 }

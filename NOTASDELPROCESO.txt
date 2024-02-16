@@ -5,6 +5,11 @@ A destacar =) No tenía conocimientos previos sobre el desarrollo de consolas en
 
 Agradezco mucho la oportunidad y disposición para enviarme el examen técnico.
 
+XML: Este esta subido en la carpeta FacturasAxoft --> Resources
+La cual es consumida desde la clase FacturasAxoftConsole-->Program.cs
+donde se le pega directamente la URL del archivo. Para realizar sus 
+pruebas en caso de ser requerido, reemplazar el archivo.
+
 Comento el procedimiento para realizar el examen:
 
 1.Leer el enunciado.

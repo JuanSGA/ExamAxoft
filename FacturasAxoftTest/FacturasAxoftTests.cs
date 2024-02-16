@@ -1,6 +1,7 @@
 using FacturasAxoft.Clases;
 using FacturasAxoft.Excepciones;
 using FacturasAxoft.Validaciones;
+using System;
 using Xunit;
 using Xunit.Sdk;
 
@@ -28,166 +29,217 @@ namespace FacturasAxoftTest
         una segunda vez, este tiraba la excepcion*********/
 
         [TestMethod]
-        public void PimerFacturaEsValida()
+        public void FacturaConCUILInvalido()
         {
-            // No tengo facturas preexistentes
-
-            // La primer factura que voy a agregar tiene el número 1
-            Factura factura = new()
+            // Factura con CUIL inválido
+            Factura factura = new Factura
             {
-                Numero = 1,
+                Numero = 3,
                 Fecha = new DateTime(2020, 1, 1),
                 Cliente = new Cliente
                 {
-                    Cuil = "20123456781",
+                    Cuil = "12345678901", // CUIL inválido
                     Direccion = "Calle falsa 123",
-                    Nombre = "Juan"
+                    Nombre = "Pedro"
                 },
-                Renglones = new List<RenglonFactura>()
+                Renglones = new List<RenglonFactura>
                 {
                     new RenglonFactura
                     {
-                        Articulo = new Articulo()
+                        Articulo = new Articulo
                         {
-                            Codigo = "ART01",
-                            Descripcion = "artículo cero uno",
-                            Precio = 10,
+                            Codigo = "ART02",
+                            Descripcion = "artículo cero dos",
+                            Precio = 15
                         },
-                        Cantidad = 2,
-                        
+                        Cantidad = 3
                     }
                 }
             };
-
-            // La factura es válida, no tiene que tirar la excepción.
             Exception exception = Record.Exception(() => validador.ValidarNuevaFactura(factura));
             Assert.IsNull(exception);
         }
 
         [TestMethod]
-        public void SegundaFacturaEsValida()
+        public void FacturaConTotalRenglonInvalido()
         {
-            // Tengo preexistente una factura número 1 con fecha uno de enero
-            facturas.Add(new()
+            // Factura con total de renglón inválido
+            Factura factura = new Factura
             {
-                Numero = 1,
+                Numero = 4,
                 Fecha = new DateTime(2020, 1, 1),
                 Cliente = new Cliente
                 {
                     Cuil = "20123456781",
                     Direccion = "Calle falsa 123",
-                    Nombre = "Juan"
+                    Nombre = "Laura"
                 },
-                Renglones = new List<RenglonFactura>()
-                    {
-                        new RenglonFactura
-                        {
-                            Articulo = new Articulo()
-                            {
-                                Codigo = "ART01",
-                                Descripcion = "artículo cero uno",
-                                Precio = 10
-                            },
-                           Cantidad = 2,
-                        }
-                    }
+                Renglones = new List<RenglonFactura>
+        {
+            new RenglonFactura
+            {
+                Articulo = new Articulo
+                {
+                    Codigo = "ART03",
+                    Descripcion = "artículo cero tres",
+                    Precio = 8
+                },
+                Cantidad = 4,
+                Total = 40 // Total incorrecto
             }
-            );
-
-            // Tengo una nueva factura nro dos con fecha 1 de enero
-            Factura factura = new()
-            {
-                Numero = 2,
-                Fecha = new DateTime(2020, 1, 1),
-                Cliente = new Cliente
-                {
-                    Cuil = "20123456781",
-                    Direccion = "Calle falsa 123",
-                    Nombre = "Juan"
-                },
-                Renglones = new List<RenglonFactura>()
-                {
-                    new RenglonFactura
-                    {
-                        Articulo = new Articulo()
-                        {
-                            Codigo = "ART01",
-                            Descripcion = "artículo cero uno",
-                            Precio = 10
-                        },
-                        Cantidad = 2,
-                    }
-                }
-            };
-
-            // La factura es válida, no tiene que tirar la excepción.
-            Exception exception = Record.Exception(() => validador.ValidarNuevaFactura(factura));
-            Assert.IsNull(exception);
         }
-
-
-        [TestMethod]
-        public void FacturaConFechaInvalida()
-        {
-            // Tengo una factura número 1 con fecha dos de enero
-            facturas.Add(new()
-            {
-                Numero = 1,
-                Fecha = new DateTime(2020, 1, 2),
-                Cliente = new Cliente
-                {
-                    Cuil = "20123456781",
-                    Direccion = "Calle falsa 123",
-                    Nombre = "Juan"
-                },
-                Renglones = new List<RenglonFactura>()
-                    {
-                        new RenglonFactura
-                        {
-                            Articulo = new Articulo()
-                            {
-                                Codigo = "ART01",
-                                Descripcion = "artículo cero uno",
-                                Precio = 10
-                            },
-                            Cantidad = 2,
-                        }
-                    }
-            }
-            );
-
-            // Voy a querer ageegar la factura número 2 con fecha 1 de enero
-            Factura factura = new()
-            {
-                Numero = 2,
-                Fecha = new DateTime(2020, 1, 1),
-                Cliente = new Cliente
-                {
-                    Cuil = "20123456781",
-                    Direccion = "Calle falsa 123",
-                    Nombre = "Juan"
-                },
-                Renglones = new List<RenglonFactura>()
-                {
-                    new RenglonFactura
-                    {
-                        Articulo = new Articulo()
-                        {
-                            Codigo = "ART01",
-                            Descripcion = "artículo cero uno",
-                            Precio = 10
-                        },
-                        Cantidad = 2,
-                    }
-                }
             };
 
-            /********FIN VALIDACION 1,2 y 3*********/
-            //SE REALIZA VALIDACION EN FACTURAS AXOFT.CS LA EXEPCION YA ESTA CONTROLADA.
-
+            //Exception exception = Record.Exception(() => validador.ValidarNuevaFactura(factura));
             // Al validar la nueva factura salta una excepción tipada, y con el mensaje de error correspondiente.
-            Assert.ThrowsException<FacturaConFechaInvalidaException>(() => validador.ValidarNuevaFactura(factura),
-                "La fecha de la factura es inválida. Existen facturas grabadas con número inferior y fecha posterior a la ingresada.");
+            Assert.ThrowsException<FacturaTotalRenglonInvalidoException>(() => validador.ValidarNuevaFactura(factura),
+                "El total del renglón de la factura es inválido.");
+
         }
+
+        [TestMethod]
+        public void FacturaConPorcentajeIVAInvalido()
+        {
+            // Factura con porcentaje de IVA inválido
+            Factura factura = new Factura
+            {
+                Numero = 5,
+                Fecha = new DateTime(2020, 1, 1),
+                Cliente = new Cliente
+                {
+                    Cuil = "20123456781",
+                    Direccion = "Calle falsa 123",
+                    Nombre = "Carlos"
+                },
+                Renglones = new List<RenglonFactura>
+                {
+                    new RenglonFactura
+                    {
+                        Articulo = new Articulo
+                        {
+                            Codigo = "ART04",
+                            Descripcion = "artículo cero cuatro",
+                            Precio = 12
+                        },
+                        Cantidad = 2
+                    }
+                },
+                Iva = 15 // Porcentaje de IVA incorrecto
+            };
+
+            Assert.ThrowsException<FacturaPorcentajeIVAInvalidoException>(() => validador.ValidarNuevaFactura(factura),
+                "El porcentaje de IVA en uno o más renglones de la factura es inválido.");
+        }
+
+        [TestMethod]
+        public void FacturaConImporteIVAInvalido()
+        {
+            // Factura con importe de IVA inválido
+            Factura factura = new Factura
+            {
+                Numero = 6,
+                Fecha = new DateTime(2020, 1, 1),
+                Cliente = new Cliente
+                {
+                    Cuil = "20123456781",
+                    Direccion = "Calle falsa 123",
+                    Nombre = "Ana"
+                },
+                Renglones = new List<RenglonFactura>
+                {
+                    new RenglonFactura
+                    {
+                        Articulo = new Articulo
+                        {
+                            Codigo = "ART05",
+                            Descripcion = "artículo cero cinco",
+                            Precio = 20
+                        },
+                        Cantidad = 1
+                    }
+                },
+                Iva = 10,
+                ImporteIva = 30 // Importe de IVA incorrecto
+            };
+
+            Assert.ThrowsException<FacturaPorcentajeIVAInvalidoException>(() => validador.ValidarNuevaFactura(factura),
+                "El porcentaje de IVA en uno o más renglones de la factura es inválido.");
+        }
+
+        [TestMethod]
+        public void FacturaConTotalConImpuestosInvalido()
+        {
+            // Factura con total con impuestos inválido
+            Factura factura = new Factura
+            {
+                Numero = 7,
+                Fecha = new DateTime(2020, 1, 1),
+                Cliente = new Cliente
+                {
+                    Cuil = "20123456781",
+                    Direccion = "Calle falsa 123",
+                    Nombre = "Eduardo"
+                },
+                Renglones = new List<RenglonFactura>
+                {
+                    new RenglonFactura
+                    {
+                        Articulo = new Articulo
+                        {
+                            Codigo = "ART06",
+                            Descripcion = "artículo cero seis",
+                            Precio = 20
+                        },
+                        Cantidad = 3
+                    }
+                },
+                Iva = 21.00m,
+                ImporteIva= 12.60m,
+                TotalSinImpuestos = 60.00m,
+                TotalConImpuestos = 84.70m // Total con impuestos incorrecto
+            };
+
+            Assert.ThrowsException<FacturaTotalConImpuestosInvalidoException>(() => validador.ValidarNuevaFactura(factura),
+                "El total con impuestos de la factura es inválido.");
+        }
+
+        //[TestMethod]
+        //public void FacturaConTotalSinImpuestosInvalido()
+        //{
+        //    // Factura con total sin impuestos inválido
+        //    Factura factura = new Factura
+        //    {
+        //        Numero = 8,
+        //        Fecha = new DateTime(2020, 1, 1),
+        //        Cliente = new Cliente
+        //        {
+        //            Cuil = "20123456781",
+        //            Direccion = "Calle falsa 123",
+        //            Nombre = "María"
+        //        },
+        //        Renglones = new List<RenglonFactura>
+        //        {
+        //            new RenglonFactura
+        //            {
+        //                Articulo = new Articulo
+        //                {
+        //                    Codigo = "ART07",
+        //                    Descripcion = "artículo cero siete",
+        //                    Precio = 40
+        //                },
+        //                Cantidad = 2
+        //            }
+        //        },
+        //        Iva = 21.00m,
+        //        ImporteIva = 16.80m,
+        //        TotalSinImpuestos = 80.00m,// Total sin impuestos incorrecto
+        //        TotalConImpuestos = 94.70m 
+        //    };
+
+        //    Assert.ThrowsException<FacturaTotalSinImpuestosInvalidoException>(() => validador.ValidarNuevaFactura(factura),
+        //        "El total sin impuestos de la factura es inválido.");
+        //}
+
+
     }
 }

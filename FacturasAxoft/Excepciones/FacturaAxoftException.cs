@@ -95,6 +95,12 @@
         {
         }
     }
-
+    public class FacturaTotalSinImpuestosInvalidoException : FacturaAxoftException
+    {
+        public FacturaTotalSinImpuestosInvalidoException() :
+            base("El total sin impuestos de la factura es inválido.")
+        {
+        }
+    }
 
 }

@@ -122,7 +122,7 @@ namespace FacturasAxoft.Validaciones
 
                 if (factura.TotalSinImpuestos != totalSinImpuestosCalculado)
                 {
-                    throw new FacturaTotalConImpuestosInvalidoException();
+                    throw new FacturaTotalSinImpuestosInvalidoException();
                 }
             }
         }

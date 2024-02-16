@@ -6,8 +6,9 @@
     /// </summary>
     public class Cliente
     {
-        public string Cuil;
-        public string Nombre;
-        public string Direccion;
+        public int Id { get; set; }
+        public string Cuil { get; set; }
+        public string Nombre { get; set; }
+        public string Direccion { get; set; }
     }
 }

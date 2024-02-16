@@ -312,7 +312,32 @@ namespace FacturasAxoft
             }
         }
 
+        public string Get3Compradores()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
 
+                string query = "SELECT TOP 3 C.Nombre, COUNT(F.Id) AS TotalCompras " +
+                               "FROM Cliente C " +
+                               "JOIN Factura F ON C.Id = F.ClienteId " +
+                               "GROUP BY C.Nombre " +
+                               "ORDER BY TotalCompras DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = "Top 3 de clientes que más compraron:\n";
+
+                    while (reader.Read())
+                    {
+                        result += $"{reader["Nombre"]} - Total Compras: {reader["TotalCompras"]}\n";
+                    }
+                    Console.WriteLine(result);
+                    return result;
+                }
+            }
+        }
 
     }
 }

@@ -339,5 +339,38 @@ namespace FacturasAxoft
             }
         }
 
+        public string GetPromedioYArticuloMasCompradoDeCliente(string cuil)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT AVG(F.TotalConImpuestos) AS PromedioCompras, A.Descripcion AS ArticuloMasComprado " +
+                               "FROM Factura F " +
+                               "JOIN Cliente C ON F.ClienteId = C.Id " +
+                               "JOIN RenglonFactura RF ON F.Id = RF.FacturaId " +
+                               "JOIN Articulo A ON RF.ArticuloId = A.Id " +
+                               "WHERE C.Cuil = @Cuil " +
+                               "GROUP BY A.Descripcion " +
+                               "ORDER BY PromedioCompras DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Cuil", cuil);
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = "Promedio de compras y artículo más comprado del cliente:\n";
+
+                    if (reader.Read())
+                    {
+                        result += $"Promedio de Compras: {reader["PromedioCompras"]}\n";
+                        result += $"Artículo más comprado: {reader["ArticuloMasComprado"]}\n";
+                    }
+                    Console.WriteLine(result);
+                    return result;
+                }
+            }
+        }
+
+
     }
 }

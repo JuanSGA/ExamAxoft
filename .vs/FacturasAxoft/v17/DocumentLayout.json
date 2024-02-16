@@ -3,14 +3,6 @@
   "WorkspaceRootPath": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoft\\validaciones\\validadorfacturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|solutionrelative:facturasaxoft\\validaciones\\validadorfacturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoft\\excepciones\\facturaaxoftexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|solutionrelative:facturasaxoft\\excepciones\\facturaaxoftexception.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoft\\facturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{93188403-140D-4EB5-B524-019BED873CCB}|FacturasAxoft\\FacturasAxoft.csproj|solutionrelative:facturasaxoft\\facturasaxoft.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -31,45 +23,19 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "ValidadorFacturasAxoft.cs",
-              "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Validaciones\\ValidadorFacturasAxoft.cs",
-              "RelativeDocumentMoniker": "FacturasAxoft\\Validaciones\\ValidadorFacturasAxoft.cs",
-              "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Validaciones\\ValidadorFacturasAxoft.cs",
-              "RelativeToolTip": "FacturasAxoft\\Validaciones\\ValidadorFacturasAxoft.cs",
-              "ViewState": "AQIAAGkAAAAAAAAAAAAswH8AAAABAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-16T07:52:41.467Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "FacturaAxoftException.cs",
-              "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Excepciones\\FacturaAxoftException.cs",
-              "RelativeDocumentMoniker": "FacturasAxoft\\Excepciones\\FacturaAxoftException.cs",
-              "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\Excepciones\\FacturaAxoftException.cs",
-              "RelativeToolTip": "FacturasAxoft\\Excepciones\\FacturaAxoftException.cs",
-              "ViewState": "AQIAAE4AAAAAAAAAAAAswGQAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-02-16T07:51:48.3Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
               "Title": "FacturasAxoft.cs",
               "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\FacturasAxoft.cs",
               "RelativeDocumentMoniker": "FacturasAxoft\\FacturasAxoft.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\FacturasAxoft.cs",
               "RelativeToolTip": "FacturasAxoft\\FacturasAxoft.cs",
-              "ViewState": "AQIAALgAAAAAAAAAAAAmwBkBAAAJAAAA",
+              "ViewState": "AQIAABMBAAAAAAAAAAAkwDgBAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:48:29.603Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftConsole\\Program.cs",
               "RelativeDocumentMoniker": "FacturasAxoftConsole\\Program.cs",

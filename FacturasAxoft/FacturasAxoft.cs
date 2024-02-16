@@ -282,6 +282,37 @@ namespace FacturasAxoft
         }
 
 
+        public string Get3ArticulosMasVendidos()
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT TOP 3 A.Descripcion, SUM(R.Cantidad) AS TotalVendido " +
+                               "FROM RenglonFactura R " +
+                               "JOIN Articulo A ON R.ArticuloId = A.Id " +
+                               "GROUP BY A.Descripcion " +
+                               "ORDER BY TotalVendido DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = "Top 3 de artículos más vendidos:\n";
+
+                    while (reader.Read())
+                    {
+                        result += $"{reader["Descripcion"]} - Total Vendido: {reader["TotalVendido"]}\n";
+                    }
+
+                    Console.WriteLine(result);
+
+
+                    return result;
+                }
+            }
+        }
+
+
 
     }
 }

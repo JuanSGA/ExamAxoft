@@ -304,9 +304,6 @@ namespace FacturasAxoft
                         result += $"{reader["Descripcion"]} - Total Vendido: {reader["TotalVendido"]}\n";
                     }
 
-                    Console.WriteLine(result);
-
-
                     return result;
                 }
             }
@@ -333,7 +330,6 @@ namespace FacturasAxoft
                     {
                         result += $"{reader["Nombre"]} - Total Compras: {reader["TotalCompras"]}\n";
                     }
-                    Console.WriteLine(result);
                     return result;
                 }
             }
@@ -365,7 +361,6 @@ namespace FacturasAxoft
                         result += $"Promedio de Compras: {reader["PromedioCompras"]}\n";
                         result += $"Artículo más comprado: {reader["ArticuloMasComprado"]}\n";
                     }
-                    Console.WriteLine(result);
                     return result;
                 }
             }
@@ -393,7 +388,6 @@ namespace FacturasAxoft
                         result += $"Total Facturado: {reader["TotalFacturado"]}\n";
                         result += $"Promedio de Factura: {reader["PromedioFactura"]}\n";
                     }
-                    Console.WriteLine(result);
                     return result;
                 }
             }
@@ -423,7 +417,6 @@ namespace FacturasAxoft
                     {
                         result += $"{reader["Nombre"]} - Total Compras: {reader["TotalCompras"]}\n";
                     }
-                    Console.WriteLine(result);
                     return result;
                 }
             }
@@ -451,7 +444,6 @@ namespace FacturasAxoft
                     {
                         result += $"Total IVA: {reader["TotalIva"]}\n";
                     }
-                    Console.WriteLine(result);
                     return result;
                 }
             }

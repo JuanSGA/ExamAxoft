@@ -1,0 +1,13 @@
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\bin\Debug\net6.0\FacturasAxoft.deps.json
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\bin\Debug\net6.0\FacturasAxoft.dll
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\bin\Debug\net6.0\FacturasAxoft.pdb
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.csproj.AssemblyReference.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.AssemblyInfoInputs.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.AssemblyInfo.cs
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.csproj.CoreCompileInputs.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.sourcelink.json
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.dll
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\refint\FacturasAxoft.dll
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\FacturasAxoft.pdb
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoft\obj\Debug\net6.0\ref\FacturasAxoft.dll

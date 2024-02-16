@@ -1,0 +1,7 @@
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\bin\Debug\net6.0\CoverletSourceRootsMapping
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.csproj.AssemblyReference.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.AssemblyInfoInputs.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.AssemblyInfo.cs
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.csproj.CoreCompileInputs.cache
+C:\Users\JuanSGA\Desktop\Axoft Exam\ExamAxoft\FacturasAxoftTest\obj\Debug\net6.0\FacturasAxoftTest.sourcelink.json

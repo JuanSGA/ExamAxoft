@@ -9,6 +9,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1E8172B5-EC64-4210-9A5D-EA47D79D4155}|FacturasAxoftConsole\\FacturasAxoftConsole.csproj|solutionrelative:facturasaxoftconsole\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1B867F8B-E524-42CB-BAAB-0860F44B9B01}|FacturasAxoftTest\\FacturasAxoftTest.csproj|c:\\users\\juansga\\desktop\\axoft exam\\examaxoft\\facturasaxofttest\\facturasaxofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1B867F8B-E524-42CB-BAAB-0860F44B9B01}|FacturasAxoftTest\\FacturasAxoftTest.csproj|solutionrelative:facturasaxofttest\\facturasaxofttests.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -18,8 +22,21 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 1,
           "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FacturasAxoftTests.cs",
+              "DocumentMoniker": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftTest\\FacturasAxoftTests.cs",
+              "RelativeDocumentMoniker": "FacturasAxoftTest\\FacturasAxoftTests.cs",
+              "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftTest\\FacturasAxoftTests.cs",
+              "RelativeToolTip": "FacturasAxoftTest\\FacturasAxoftTests.cs",
+              "ViewState": "AQIAALIAAAAAAAAAAAAmwLQAAAAXAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-02-16T07:59:08.929Z",
+              "EditorCaption": ""
+            },
             {
               "$type": "Document",
               "DocumentIndex": 0,
@@ -28,7 +45,7 @@
               "RelativeDocumentMoniker": "FacturasAxoft\\FacturasAxoft.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoft\\FacturasAxoft.cs",
               "RelativeToolTip": "FacturasAxoft\\FacturasAxoft.cs",
-              "ViewState": "AQIAALMBAAAAAAAAAAAswMkBAAAJAAAA",
+              "ViewState": "AQIAALcBAAAAAAAAAAAAAL4BAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:48:29.603Z",
               "EditorCaption": ""
@@ -41,7 +58,7 @@
               "RelativeDocumentMoniker": "FacturasAxoftConsole\\Program.cs",
               "ToolTip": "C:\\Users\\JuanSGA\\Desktop\\Axoft Exam\\ExamAxoft\\FacturasAxoftConsole\\Program.cs",
               "RelativeToolTip": "FacturasAxoftConsole\\Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAAAAAA",
+              "ViewState": "AQIAABAAAAAAAAAAAAAcwBkAAAA4AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-02-16T07:38:21.404Z",
               "EditorCaption": ""

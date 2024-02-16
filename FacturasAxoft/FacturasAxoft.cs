@@ -399,5 +399,35 @@ namespace FacturasAxoft
             }
         }
 
+        public string GetTop3ClientesDeArticulo(string codigoArticulo)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT TOP 3 C.Nombre, COUNT(F.Id) AS TotalCompras " +
+                               "FROM Cliente C " +
+                               "JOIN Factura F ON C.Id = F.ClienteId " +
+                               "JOIN RenglonFactura RF ON F.Id = RF.FacturaId " +
+                               "WHERE RF.ArticuloId = (SELECT Id FROM Articulo WHERE Codigo = @Codigo) " +
+                               "GROUP BY C.Nombre " +
+                               "ORDER BY TotalCompras DESC";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Codigo", codigoArticulo);
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = $"Top 3 de clientes que más compraron el artículo {codigoArticulo}:\n";
+
+                    while (reader.Read())
+                    {
+                        result += $"{reader["Nombre"]} - Total Compras: {reader["TotalCompras"]}\n";
+                    }
+                    Console.WriteLine(result);
+                    return result;
+                }
+            }
+        }
+
     }
 }

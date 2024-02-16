@@ -1,0 +1,105 @@
+{
+  "version": 3,
+  "targets": {
+    "net6.0": {
+      "FacturasAxoft/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v6.0",
+        "compile": {
+          "bin/placeholder/FacturasAxoft.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/FacturasAxoft.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "FacturasAxoft/1.0.0": {
+      "type": "project",
+      "path": "../FacturasAxoft/FacturasAxoft.csproj",
+      "msbuildProject": "../FacturasAxoft/FacturasAxoft.csproj"
+    }
+  },
+  "projectFileDependencyGroups": {
+    "net6.0": [
+      "FacturasAxoft >= 1.0.0"
+    ]
+  },
+  "packageFolders": {
+    "C:\\Users\\JuanSGA\\.nuget\\packages\\": {}
+  },
+  "project": {
+    "version": "1.0.0",
+    "restore": {
+      "projectUniqueName": "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoftConsole\\FacturasAxoftConsole.csproj",
+      "projectName": "FacturasAxoftConsole",
+      "projectPath": "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoftConsole\\FacturasAxoftConsole.csproj",
+      "packagesPath": "C:\\Users\\JuanSGA\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoftConsole\\obj\\",
+      "projectStyle": "PackageReference",
+      "configFilePaths": [
+        "C:\\Users\\JuanSGA\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+      ],
+      "originalTargetFrameworks": [
+        "net6.0"
+      ],
+      "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "http://nuget.cstechlab.com:21445/nuget": {},
+        "https://api.nuget.org/v3/index.json": {}
+      },
+      "frameworks": {
+        "net6.0": {
+          "targetAlias": "net6.0",
+          "projectReferences": {
+            "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoft\\FacturasAxoft.csproj": {
+              "projectPath": "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoft\\FacturasAxoft.csproj"
+            }
+          }
+        }
+      },
+      "warningProperties": {
+        "warnAsError": [
+          "NU1605"
+        ]
+      },
+      "restoreAuditProperties": {
+        "enableAudit": "true",
+        "auditLevel": "low",
+        "auditMode": "direct"
+      }
+    },
+    "frameworks": {
+      "net6.0": {
+        "targetAlias": "net6.0",
+        "imports": [
+          "net461",
+          "net462",
+          "net47",
+          "net471",
+          "net472",
+          "net48",
+          "net481"
+        ],
+        "assetTargetFallback": true,
+        "warn": true,
+        "frameworkReferences": {
+          "Microsoft.NETCore.App": {
+            "privateAssets": "all"
+          }
+        },
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.201\\RuntimeIdentifierGraph.json"
+      }
+    }
+  },
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Está ejecutando la operación \"restore\" con un origen \"HTTP\", \"http://nuget.cstechlab.com:21445/nuget\". El acceso que no sea HTTPS se quitará en una versión futura. Considere la posibilidad de migrar a un origen \"HTTPS\"."
+    }
+  ]
+}

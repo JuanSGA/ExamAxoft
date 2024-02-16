@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "CdQ3qKWbEjKeTthxwK2jX0AyrlSt1VqE9WoygjNqfIc0+QOge+4ESYE5S/dCqRV1NH6oUcQM1bVD0Mb8NBgmhg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\JuanSGA\\Desktop\\Axoft\\FacturasAxoft\\FacturasAxoft\\FacturasAxoft.csproj",
+  "expectedPackageFiles": [],
+  "logs": [
+    {
+      "code": "NU1803",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Está ejecutando la operación \"restore\" con un origen \"HTTP\", \"http://nuget.cstechlab.com:21445/nuget\". El acceso que no sea HTTPS se quitará en una versión futura. Considere la posibilidad de migrar a un origen \"HTTPS\"."
+    }
+  ]
+}

@@ -22,8 +22,8 @@ namespace FacturasAxoft.Validaciones
         public void ValidarNuevaFactura(Factura factura)
         {
             ValidarCUIL(factura);
-            ValidarArticulosRenglones(factura);
-            ValidarTotalesRenglones(factura);
+           // ValidarArticulosRenglones(factura);
+           // ValidarTotalesRenglones(factura);
             ValidarPorcentajeIVA(factura);
             ValidarImporteIVA(factura);
             ValidarTotalConImpuestos(factura);
@@ -62,27 +62,27 @@ namespace FacturasAxoft.Validaciones
         /***************************FIN VALIDACION 4**************************************/
 
 
-        private void ValidarArticulosRenglones(Factura factura)
-        {
-            foreach (var renglon in factura.Renglones)
-            {
-                if (!articulos.Any(a => a.Id == renglon.Articulo.Id))
-                {
-                    throw new FacturaArticuloInexistenteException();
-                }
-            }
-        }
+        //private void ValidarArticulosRenglones(Factura factura)
+        //{
+        //    foreach (var renglon in factura.Renglones)
+        //    {
+        //        if (!articulos.Any(a => a.Id == renglon.Articulo.Id))
+        //        {
+        //            throw new FacturaArticuloInexistenteException();
+        //        }
+        //    }
+        //}
 
-        private void ValidarTotalesRenglones(Factura factura)
-        {
-            foreach (var renglon in factura.Renglones)
-            {
-                if (renglon.Total != renglon.Cantidad * renglon.Articulo.Precio)
-                {
-                    throw new FacturaTotalRenglonInvalidoException();
-                }
-            }
-        }
+        //private void ValidarTotalesRenglones(Factura factura)
+        //{
+        //    foreach (var renglon in factura.Renglones)
+        //    {
+        //        if (renglon.Total != renglon.Cantidad * renglon.Articulo.Precio)
+        //        {
+        //            throw new FacturaTotalRenglonInvalidoException();
+        //        }
+        //    }
+        //}
 
         private void ValidarPorcentajeIVA(Factura factura)
         {

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("FacturasAxoftConsole")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9bb2e297100c66d5331ff14b19f3dab19db3a647")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+bb81d863a8f9937ab51c5d644cea592d7b304472")]
 [assembly: System.Reflection.AssemblyProductAttribute("FacturasAxoftConsole")]
 [assembly: System.Reflection.AssemblyTitleAttribute("FacturasAxoftConsole")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

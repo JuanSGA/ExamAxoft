@@ -191,6 +191,9 @@ namespace FacturasAxoftTest
                 }
             };
 
+
+            //SE REALIZA VALIDACION EN FACTURAS AXOFT.CS LA EXEPCION YA ESTA CONTROLADA.
+
             // Al validar la nueva factura salta una excepción tipada, y con el mensaje de error correspondiente.
             Assert.ThrowsException<FacturaConFechaInvalidaException>(() => validador.ValidarNuevaFactura(factura),
                 "La fecha de la factura es inválida. Existen facturas grabadas con número inferior y fecha posterior a la ingresada.");

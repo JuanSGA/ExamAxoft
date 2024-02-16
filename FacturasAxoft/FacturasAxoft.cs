@@ -78,7 +78,7 @@ namespace FacturasAxoft
                         fechaAnterior = fechaActual;
                     }
 
-                    /*****************************VALIDACIONES***********************/
+                    /*****************************FIN VALIDACIONES***********************/
 
 
 
@@ -97,33 +97,36 @@ namespace FacturasAxoft
 
                         // Obtener y procesar los renglones de la factura
                         XElement renglonesElement = facturaElement.Element("renglones");
+                        List<RenglonFactura> renglones = new List<RenglonFactura>();
+                        foreach (XElement renglonElement in renglonesElement.Elements("renglon"))
+                        {
+                            if (int.TryParse(renglonElement.Element("cantidad").Value, out int cantidad) &&
+                                decimal.TryParse(renglonElement.Element("precioUnitario").Value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal precioUnitario) &&
+                                decimal.TryParse(renglonElement.Element("total").Value, NumberStyles.Any, CultureInfo.InvariantCulture, out decimal total))
+                            {
+                                renglones.Add(new RenglonFactura
+                                {
+                                    Cantidad = cantidad,
+                                    PrecioUnitario = precioUnitario,
+                                    Total = total,
+                                });
+                            }
+                            else
+                            {
+                                // Manejar error al analizar los datos del renglón
+                            }
+                        }
+
+                        // Obtener otros datos de la factura
                         decimal totalSinImpuestos = decimal.Parse(facturaElement.Element("totalSinImpuestos").Value, CultureInfo.InvariantCulture);
                         decimal iva = decimal.Parse(facturaElement.Element("iva").Value, CultureInfo.InvariantCulture);
                         decimal importeIva = decimal.Parse(facturaElement.Element("importeIva").Value, CultureInfo.InvariantCulture);
                         decimal totalConImpuestos = decimal.Parse(facturaElement.Element("totalConImpuestos").Value, CultureInfo.InvariantCulture);
 
                         int numeroFacturaInt = int.Parse(numeroFactura);
+
                         // Crear instancia de Factura con los datos obtenidos del XML
-                        Factura factura = new Factura
-                        {
-                            Numero = numeroFacturaInt,
-                            Fecha = DateTime.ParseExact(fechaFactura, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-
-                            Cliente = new Cliente
-                            {
-                                Cuil = cuilCliente,
-                                Nombre = nombreCliente,
-                                Direccion = direccionCliente
-                            },
-
-                            Renglones = new List<RenglonFactura>(),
-
-                            TotalSinImpuestos = totalSinImpuestos,
-                            Iva = iva,
-                            ImporteIva = importeIva,
-                            TotalConImpuestos = totalConImpuestos
-
-                        };
+                        Factura factura = CrearInstanciaFactura(numeroFacturaInt, fechaFactura, cuilCliente, nombreCliente, direccionCliente, renglones, totalSinImpuestos, iva, importeIva, totalConImpuestos);
 
                         // Llamar al validador antes de realizar la inserción en la base de datos
                         validador.ValidarNuevaFactura(factura);
@@ -133,8 +136,8 @@ namespace FacturasAxoft
 
                         // Obtener y procesar los renglones de la factura
                         ProcesarRenglones(connection, numeroFactura, fechaFactura, clienteId, renglonesElement, totalSinImpuestos, iva, importeIva, totalConImpuestos);
-
                     }
+
                 }
 
                 Console.WriteLine("Facturas cargadas correctamente en la base de datos.");
@@ -145,6 +148,28 @@ namespace FacturasAxoft
 
             }
         }
+
+        // Método para crear la instancia de Factura
+        private Factura CrearInstanciaFactura(int numeroFactura, string fechaFactura, string cuilCliente, string nombreCliente, string direccionCliente, List<RenglonFactura> renglones, decimal totalSinImpuestos, decimal iva, decimal importeIva, decimal totalConImpuestos)
+        {
+            return new Factura
+            {
+                Numero = numeroFactura,
+                Fecha = DateTime.ParseExact(fechaFactura, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+                Cliente = new Cliente
+                {
+                    Cuil = cuilCliente,
+                    Nombre = nombreCliente,
+                    Direccion = direccionCliente
+                },
+                Renglones = renglones,
+                TotalSinImpuestos = totalSinImpuestos,
+                Iva = iva,
+                ImporteIva = importeIva,
+                TotalConImpuestos = totalConImpuestos
+            };
+        }
+
 
         private int InsertarClienteEnBaseDeDatos(SqlConnection connection, string cuil, string nombre, string direccion)
         {
@@ -201,8 +226,9 @@ namespace FacturasAxoft
                 // Obtener el Id del artículo (o insertarlo si no existe)
                 int articuloId = ObtenerOInsertarArticuloId(connection, codigoArticulo, descripcion, precioUnitario);
 
-
                 /**********************FIN VALIDACION 6************/
+
+
 
 
                 // Insertar datos del renglón en la base de datos

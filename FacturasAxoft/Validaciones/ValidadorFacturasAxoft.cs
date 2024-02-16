@@ -22,11 +22,11 @@ namespace FacturasAxoft.Validaciones
         public void ValidarNuevaFactura(Factura factura)
         {
             ValidarCUIL(factura);
-           // ValidarArticulosRenglones(factura);
-           // ValidarTotalesRenglones(factura);
+            ValidarTotalesRenglones(factura);
             ValidarPorcentajeIVA(factura);
             ValidarImporteIVA(factura);
             ValidarTotalConImpuestos(factura);
+            ValidarTotalSinImpuestos(factura);
         }
 
 
@@ -61,50 +61,36 @@ namespace FacturasAxoft.Validaciones
 
         /***************************FIN VALIDACION 4**************************************/
 
-
-        //private void ValidarArticulosRenglones(Factura factura)
-        //{
-        //    foreach (var renglon in factura.Renglones)
-        //    {
-        //        if (!articulos.Any(a => a.Id == renglon.Articulo.Id))
-        //        {
-        //            throw new FacturaArticuloInexistenteException();
-        //        }
-        //    }
-        //}
-
-        //private void ValidarTotalesRenglones(Factura factura)
-        //{
-        //    foreach (var renglon in factura.Renglones)
-        //    {
-        //        if (renglon.Total != renglon.Cantidad * renglon.Articulo.Precio)
-        //        {
-        //            throw new FacturaTotalRenglonInvalidoException();
-        //        }
-        //    }
-        //}
+        private void ValidarTotalesRenglones(Factura factura)
+        {
+            foreach (var renglon in factura.Renglones)
+            {
+                if (renglon.Total != renglon.Cantidad * renglon.PrecioUnitario)
+                {
+                    throw new FacturaTotalRenglonInvalidoException();
+                }
+            }
+        }
 
         private void ValidarPorcentajeIVA(Factura factura)
         {
-
             if (!ValidarPorcentajeIVA(factura.Iva))
             {
                 throw new FacturaPorcentajeIVAInvalidoException();
             }
-
         }
 
         private bool ValidarPorcentajeIVA(decimal porcentajeIVA)
         {
             // Implementar lógica de validación del porcentaje de IVA según requisitos específicos
-            return porcentajeIVA == 0 || porcentajeIVA == 10.5m || porcentajeIVA == 21m || porcentajeIVA == 27m;
+            return porcentajeIVA == 0m || porcentajeIVA == 10.5m || porcentajeIVA == 21m || porcentajeIVA == 27m;
         }
 
         private void ValidarImporteIVA(Factura factura)
         {
             foreach (var renglon in factura.Renglones)
             {
-                decimal ivaCalculado = renglon.Total * (factura.Iva / 100);
+                decimal ivaCalculado = factura.TotalSinImpuestos * (factura.Iva / 100); // Corrección aquí
                 if (factura.ImporteIva != ivaCalculado)
                 {
                     throw new FacturaImporteIVAInvalidoException();
@@ -112,17 +98,34 @@ namespace FacturasAxoft.Validaciones
             }
         }
 
+
         private void ValidarTotalConImpuestos(Factura factura)
         {
-            decimal totalSinImpuestos = factura.Renglones.Sum(r => r.Total);
-            decimal totalConImpuestos = totalSinImpuestos + factura.Renglones.Sum(r => factura.ImporteIva);
             foreach (var renglon in factura.Renglones)
             {
-                if (renglon.Total != totalConImpuestos)
+                decimal ivaCalculado = factura.TotalSinImpuestos * (factura.Iva / 100);
+                decimal totalConImpuestosCalculado = factura.TotalSinImpuestos + ivaCalculado;
+
+                if (factura.TotalConImpuestos != totalConImpuestosCalculado)
                 {
                     throw new FacturaTotalConImpuestosInvalidoException();
                 }
             }
         }
+
+        private void ValidarTotalSinImpuestos(Factura factura)
+        {
+            foreach (var renglon in factura.Renglones)
+            {
+                decimal ivaCalculado = factura.TotalSinImpuestos * (factura.Iva / 100);
+                decimal totalSinImpuestosCalculado = factura.TotalConImpuestos - ivaCalculado;
+
+                if (factura.TotalSinImpuestos != totalSinImpuestosCalculado)
+                {
+                    throw new FacturaTotalConImpuestosInvalidoException();
+                }
+            }
+        }
+
     }
 }

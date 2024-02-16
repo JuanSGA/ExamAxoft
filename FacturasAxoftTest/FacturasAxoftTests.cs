@@ -14,10 +14,6 @@ namespace FacturasAxoftTest
         private readonly List<Factura> facturas;
         private readonly ValidadorFacturasAxoft validador;
 
-        /// <summary>
-        /// Copmletar con los tests necesarios para verificar toda la funcionalidad requerida.
-        /// Puede ser necesario modificar los tests preexistentes para que corran corractamente al implementar el resto de la solución.
-        /// </summary>
         public FacturasAxoftTests()
         {
             clientes = new List<Cliente>();
@@ -27,9 +23,10 @@ namespace FacturasAxoftTest
             validador = new ValidadorFacturasAxoft(clientes, articulos, facturas);
         }
 
-        /// <summary>
-        /// La primer factura a ingresar, con número 1 es válida.
-        /// </summary>
+        /********Basicamente test 1 y 2 se validan en la clase FactuasAxoft.cs ya que se debe contemplar
+        Todas las partes del bucle, en el validador estaba ingresando por unica vez, pero cuando entraba 
+        una segunda vez, este tiraba la excepcion*********/
+
         [TestMethod]
         public void PimerFacturaEsValida()
         {
@@ -67,9 +64,6 @@ namespace FacturasAxoftTest
             Assert.IsNull(exception);
         }
 
-        /// <summary>
-        /// La primer factura a ingresar, con número 2 es válida.
-        /// </summary>
         [TestMethod]
         public void SegundaFacturaEsValida()
         {
@@ -131,10 +125,7 @@ namespace FacturasAxoftTest
             Assert.IsNull(exception);
         }
 
-        /// <summary>
-        /// Este test verifica si tengo una factura con número 1 y fecha 2 de enero no pueda ingregar la factura nro 2 con fecha
-        /// 1 de enero porque no estaría respetando el órden cronológico.
-        /// </summary>
+
         [TestMethod]
         public void FacturaConFechaInvalida()
         {
@@ -191,7 +182,7 @@ namespace FacturasAxoftTest
                 }
             };
 
-
+            /********FIN VALIDACION 1,2 y 3*********/
             //SE REALIZA VALIDACION EN FACTURAS AXOFT.CS LA EXEPCION YA ESTA CONTROLADA.
 
             // Al validar la nueva factura salta una excepción tipada, y con el mensaje de error correspondiente.

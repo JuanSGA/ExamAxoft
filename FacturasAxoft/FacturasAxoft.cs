@@ -1,96 +1,287 @@
-﻿namespace FacturasAxoft
+﻿using FacturasAxoft.Clases;
+using FacturasAxoft.Excepciones;
+using FacturasAxoft.Validaciones;
+using System.Data.SqlClient;
+using System.Globalization;
+using System.Xml.Linq;
+
+namespace FacturasAxoft
 {
     public class FacturasAxoft
     {
-        private readonly string connectionString;
 
-        /// <summary>
-        /// Instancia un FacturasAxoft que usaremos como fachada de la aplicación.
-        /// </summary>
-        /// <param name="conectionString">Datos necesarios para conectarse a la base de datos</param>
-        /// <exception>Debe tirar una excepción con mensaje de error correspondiente en caso de no poder conectar a la base de datos</exception>
-        public FacturasAxoft(string connectionString)
+        private readonly string connectionString;
+        private readonly ValidadorFacturasAxoft validador;
+
+        public FacturasAxoft(string connectionString, List<Cliente> clientes, List<Articulo> articulos, List<Factura> facturas)
         {
             this.connectionString = connectionString;
+            this.validador = new ValidadorFacturasAxoft(clientes, articulos, facturas);
         }
 
-        /// <summary>
-        /// Lee las facturas desde el archivo XML y las graba en la base de datos.
-        /// Da de alta los clientes o los artículos que lleguen en el xml y no estén en la base de datos.
-        /// </summary>
-        /// <param name="path">Ubicación del archivo xml que contiene las facturas</param>
-        /// <exception>Si no se puede acceder al archivo, no es un xml válido, o no cumple con las reglas de negocio, 
-        /// devuelve una excepción con el mensaje de error correspondiente</exception>/// 
         public void CargarFacturas(string path)
         {
-            // Completar acá con el código necesario para cargar las facturas desde el xml.
-            // Al momento de hacer las validaciones, utilizar la clase ValidadorFacturasAxoft.
-            throw new NotImplementedException();
+            try
+            {
+                XDocument xmlDoc = XDocument.Load(path);
+
+                using (SqlConnection connection = new SqlConnection(connectionString))
+                {
+                    connection.Open();
+
+
+
+                    /*****************************VALIDACIONES***********************/
+
+                    // 1) La numeración de facturas comienza en 1.
+                    // 2) Al grabar una nueva factura debe ya estar grabada la anterior.Por ejemplo, para grabar la factura 3 es requisito que ya esté grabada la 2.
+                    // 3) Las facturas están emitidas en órden cronológico, por lo que si la factura 1 tiene fecha 5 de enero, la factura 2 no puede tener fecha 4 de enero.
+
+                    //creo primer foreach que recorra para validar las facturas secuenciales
+                    //Luego pasarlo al modulo de validaciones correspondientes.
+                    int numeroEsperado = 1; // Inicializar el primer número esperado
+                    DateTime fechaAnterior = DateTime.MinValue; // Inicializar la fecha anterior con un valor mínimo
+
+                    foreach (XElement facturaElementSecuencial in xmlDoc.Descendants("factura"))
+                    {
+                        string numeroFactura = facturaElementSecuencial.Element("numero").Value;
+                        string fechaFactura = facturaElementSecuencial.Element("fecha").Value;
+
+                        // Convertir el número de factura a entero para la comparación
+                        if (int.TryParse(numeroFactura, out int numeroActual))
+                        {
+                            // Validar si el número actual es igual al número esperado
+                            if (numeroActual != numeroEsperado)
+                            {
+                                throw new FacturaNumeracionInvalidaConsecutivaException();
+                            }
+                            // Incrementar el número esperado para la próxima iteración
+                            numeroEsperado++;
+                        }
+                        else
+                        {
+                            // Lanzar error si el número de factura no es un número válido secuencial
+                            Console.WriteLine("Error: El número de factura no es un número válido.");
+                            break;
+                        }
+
+                        // Convertir la fecha de factura a formato DateTime
+                        var fechaActual = DateTime.ParseExact(fechaFactura, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+
+                        // Validar que la fecha actual no sea menor que la fecha anterior
+                        if (fechaActual < fechaAnterior)
+                        {
+                            throw new FacturaConFechaInvalidaException();
+                        }
+
+                        // Actualizar la fecha anterior para la próxima iteración
+                        fechaAnterior = fechaActual;
+                    }
+
+                    /*****************************VALIDACIONES***********************/
+
+
+
+
+                    foreach (XElement facturaElement in xmlDoc.Descendants("factura"))
+                    {
+                        // Obtener datos de la factura del XML
+                        string numeroFactura = facturaElement.Element("numero").Value;
+                        string fechaFactura = facturaElement.Element("fecha").Value;
+
+                        // Obtener datos del cliente del XML
+                        XElement clienteElement = facturaElement.Element("cliente");
+                        string cuilCliente = clienteElement.Element("CUIL").Value;
+                        string nombreCliente = clienteElement.Element("nombre").Value;
+                        string direccionCliente = clienteElement.Element("direccion").Value;
+
+                        // Obtener y procesar los renglones de la factura
+                        XElement renglonesElement = facturaElement.Element("renglones");
+                        decimal totalSinImpuestos = decimal.Parse(facturaElement.Element("totalSinImpuestos").Value, CultureInfo.InvariantCulture);
+                        decimal iva = decimal.Parse(facturaElement.Element("iva").Value, CultureInfo.InvariantCulture);
+                        decimal importeIva = decimal.Parse(facturaElement.Element("importeIva").Value, CultureInfo.InvariantCulture);
+                        decimal totalConImpuestos = decimal.Parse(facturaElement.Element("totalConImpuestos").Value, CultureInfo.InvariantCulture);
+
+                        int numeroFacturaInt = int.Parse(numeroFactura);
+                        // Crear instancia de Factura con los datos obtenidos del XML
+                        Factura factura = new Factura
+                        {
+                            Numero = numeroFacturaInt,
+                            Fecha = DateTime.ParseExact(fechaFactura, "dd/MM/yyyy", CultureInfo.InvariantCulture),
+
+                            Cliente = new Cliente
+                            {
+                                Cuil = cuilCliente,
+                                Nombre = nombreCliente,
+                                Direccion = direccionCliente
+                            },
+
+                            Renglones = new List<RenglonFactura>(),
+
+                            TotalSinImpuestos = totalSinImpuestos,
+                            Iva = iva,
+                            ImporteIva = importeIva,
+                            TotalConImpuestos = totalConImpuestos
+
+                        };
+
+                        // Llamar al validador antes de realizar la inserción en la base de datos
+                        validador.ValidarNuevaFactura(factura);
+
+                        // Insertar datos del cliente en la base de datos (si no existe)
+                        int clienteId = InsertarClienteEnBaseDeDatos(connection, cuilCliente, nombreCliente, direccionCliente);
+
+                        // Obtener y procesar los renglones de la factura
+                        ProcesarRenglones(connection, numeroFactura, fechaFactura, clienteId, renglonesElement, totalSinImpuestos, iva, importeIva, totalConImpuestos);
+
+                    }
+                }
+
+                Console.WriteLine("Facturas cargadas correctamente en la base de datos.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error al cargar las facturas: {ex.Message}");
+
+            }
         }
 
-        /// <summary>
-        /// Obtiene los 3 artículos mas vendidos
-        /// </summary>
-        /// <returns>JSON con los 3 artículos mas vendidos</returns>
-        /// <exception>Nunca devuelve excepción, en caso de no existir 3 artículos vendidos devolver los que existan, en caso de
-        /// tener artículos con la misma cantidad de ventas devolver cualquiera</exception>
-        public string Get3ArticulosMasVendidos()
+        private int InsertarClienteEnBaseDeDatos(SqlConnection connection, string cuil, string nombre, string direccion)
         {
-            throw new NotImplementedException();
+
+
+            /****************** VALIDACION 5)Un mismo cliente siempre tiene el mismo CUIL, nombre, dirección, y porcentaje de IVA.***********************/
+
+
+            // Verificar si el cliente ya existe en la base de datos
+            string query = "SELECT Id FROM Cliente WHERE Cuil = @Cuil";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Cuil", cuil);
+                object result = command.ExecuteScalar();
+
+                if (result != null)
+                {
+                    // El cliente ya existe, devolver el Id existente
+                    return (int)result;
+                }
+            }
+
+            // Si no existe, insertar el nuevo cliente y devolver su Id
+            query = "INSERT INTO Cliente (Cuil, Nombre, Direccion) VALUES (@Cuil, @Nombre, @Direccion); SELECT SCOPE_IDENTITY();";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Cuil", cuil);
+                command.Parameters.AddWithValue("@Nombre", nombre);
+                command.Parameters.AddWithValue("@Direccion", direccion);
+
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
+
+
+
+            /***********************FIN VALIDACION 5*******************************/
         }
 
-        /// <summary>
-        /// Obtiene los 3 clientes que mas compraron
-        /// </summary>
-        /// <returns>JSON con los 3 clientes que mas compraron</returns>
-        /// <exception>Mismo criterio que para artículos</exception>
-        public string Get3Compradores()
+        private void ProcesarRenglones(SqlConnection connection, string numeroFactura, string fechaFactura, int clienteId, XElement renglonesElement, decimal totalSinImpuestos, decimal iva, decimal importeIva, decimal totalConImpuestos)
         {
-            throw new NotImplementedException();
+            foreach (XElement renglonElement in renglonesElement.Elements("renglon"))
+            {
+
+                /**********VALIDACION 6)Un mismo artículo siempre tiene el mismo código, descripción, y precio unitario.*******************/
+
+
+                // Obtener datos del renglón del XML
+                string codigoArticulo = renglonElement.Element("codigoArticulo").Value;
+                string descripcion = renglonElement.Element("descripcion").Value;
+                decimal precioUnitario = decimal.Parse(renglonElement.Element("precioUnitario").Value, CultureInfo.InvariantCulture);
+                int cantidad = int.Parse(renglonElement.Element("cantidad").Value);
+                decimal total = decimal.Parse(renglonElement.Element("total").Value, CultureInfo.InvariantCulture);
+
+                // Obtener el Id del artículo (o insertarlo si no existe)
+                int articuloId = ObtenerOInsertarArticuloId(connection, codigoArticulo, descripcion, precioUnitario);
+
+
+                /**********************FIN VALIDACION 6************/
+
+
+                // Insertar datos del renglón en la base de datos
+                InsertarRenglonEnBaseDeDatos(connection, numeroFactura, fechaFactura, clienteId, articuloId, cantidad, total, totalSinImpuestos, iva, importeIva, totalConImpuestos);
+
+                // Obtener otros datos necesarios y realizar las inserciones correspondientes...
+            }
         }
 
-        /// <summary>
-        /// Devuelve el promedio de facturas y el artículo que mas compro.
-        /// </summary>
-        /// <param name="cuil"></param>
-        /// <returns>JSON con los datos requeridos</returns>
-        /// <exception>Si no existe el cliente, o si no tiene compras devolver un mensaje de error con el mensaje correspondiente</exception>
-        public string GetPromedioYArticuloMasCompradoDeCliente(string cuil)
+        private int ObtenerOInsertarArticuloId(SqlConnection connection, string codigoArticulo, string descripcion, decimal precioUnitario)
         {
-            throw new NotImplementedException();
+            // Verificar si el artículo ya existe en la base de datos
+            string query = "SELECT Id FROM Articulo WHERE Codigo = @Codigo";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Codigo", codigoArticulo);
+                object result = command.ExecuteScalar();
+
+                if (result != null)
+                {
+                    // El artículo ya existe, devolver el Id existente
+                    return (int)result;
+                }
+            }
+
+            // Si no existe, insertar el nuevo artículo y devolver su Id
+            query = "INSERT INTO Articulo (Codigo, Descripcion, Precio) VALUES (@Codigo, @Descripcion, @Precio); SELECT SCOPE_IDENTITY();";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Codigo", codigoArticulo);
+                command.Parameters.AddWithValue("@Descripcion", descripcion);
+                command.Parameters.AddWithValue("@Precio", precioUnitario);
+
+                return Convert.ToInt32(command.ExecuteScalar());
+            }
         }
 
-        /// <summary>
-        /// Devuelve el total y promedio facturado para una fecha.
-        /// </summary>
-        /// <param name="fecha"></param>
-        /// <returns>JSON con los datos requeridos</returns>
-        /// <exception>Si el dato de fecha ingresado no es válido, o si no existen facturas para la fecha dada,
-        /// mostrar el mensaje de error correspondiente</exception>
-        public string GetTotalYPromedioFacturadoPorFecha(string fecha)
+        private void InsertarRenglonEnBaseDeDatos(SqlConnection connection, string numeroFactura, string fechaFactura, int clienteId, int articuloId, int cantidad, decimal total, decimal totalSinImpuestos, decimal iva, decimal importeIva, decimal totalConImpuestos)
         {
-            throw new NotImplementedException();
+            // Insertar datos del renglón en la base de datos
+            string query = "INSERT INTO Factura (Numero, Fecha, ClienteId, TotalSinImpuestos, Iva, ImporteIva, TotalConImpuestos) VALUES (@Numero, @Fecha, @ClienteId, @TotalSinImpuestos, @Iva, @ImporteIva, @TotalConImpuestos); SELECT SCOPE_IDENTITY();";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@Numero", numeroFactura);
+                command.Parameters.AddWithValue("@Fecha", DateTime.ParseExact(fechaFactura, "dd/MM/yyyy", CultureInfo.InvariantCulture));
+                command.Parameters.AddWithValue("@ClienteId", clienteId);
+                command.Parameters.AddWithValue("@TotalSinImpuestos", totalSinImpuestos);
+                command.Parameters.AddWithValue("@Iva", iva);
+                command.Parameters.AddWithValue("@ImporteIva", importeIva);
+                command.Parameters.AddWithValue("@TotalConImpuestos", totalConImpuestos);
+
+                int facturaId = Convert.ToInt32(command.ExecuteScalar());
+
+                // Insertar el renglón asociado a la factura
+                query = "INSERT INTO RenglonFactura (FacturaId, ArticuloId, Cantidad, PrecioUnitario, Total) VALUES (@FacturaId, @ArticuloId, @Cantidad, @PrecioUnitario, @Total)";
+                using (SqlCommand renglonCommand = new SqlCommand(query, connection))
+                {
+                    renglonCommand.Parameters.AddWithValue("@FacturaId", facturaId);
+                    renglonCommand.Parameters.AddWithValue("@ArticuloId", articuloId);
+                    renglonCommand.Parameters.AddWithValue("@Cantidad", cantidad);
+                    renglonCommand.Parameters.AddWithValue("@PrecioUnitario", ObtenerPrecioUnitarioArticulo(connection, articuloId));
+                    renglonCommand.Parameters.AddWithValue("@Total", total);
+
+                    renglonCommand.ExecuteNonQuery();
+                }
+            }
         }
 
-        /// <summary>
-        /// Devuelve los 3 clientes que mas compraron el artículo
-        /// </summary>
-        /// <param name="codigoArticulo"></param>
-        /// <returns>JSON con los datos pedidos</returns>
-        /// <exception>Si el artículo no existe, o no fue comprado por al menos 3 clientes devolver un mensaje de error correspondiente</exception>
-        public string GetTop3ClientesDeArticulo(string codigoArticulo)
+        private decimal ObtenerPrecioUnitarioArticulo(SqlConnection connection, int articuloId)
         {
-            throw new NotImplementedException();
+            string query = "SELECT Precio FROM Articulo WHERE Id = @ArticuloId";
+            using (SqlCommand command = new SqlCommand(query, connection))
+            {
+                command.Parameters.AddWithValue("@ArticuloId", articuloId);
+                return Convert.ToDecimal(command.ExecuteScalar());
+            }
         }
 
-        /// <summary>
-        /// Devuelve el total de IVA de las facturas generadas desde la fechaDesde hasta la fechaHasta, ambas inclusive.
-        /// </summary>
-        /// <returns>JSON con el dato requerido</returns>
-        /// <exception>Si no existen facturas para las fechas ingresadas mostrar un mensaje de error</exception>
-        public string GetTotalIva(string fechaDesde, string fechaHasta)
-        {
-            throw new NotImplementedException();
-        }
+
+
     }
 }

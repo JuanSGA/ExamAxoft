@@ -429,5 +429,33 @@ namespace FacturasAxoft
             }
         }
 
+
+        public string GetTotalIva(string fechaDesde, string fechaHasta)
+        {
+            using (SqlConnection connection = new SqlConnection(connectionString))
+            {
+                connection.Open();
+
+                string query = "SELECT SUM(F.ImporteIva) AS TotalIva " +
+                               "FROM Factura F " +
+                               "WHERE F.Fecha BETWEEN @FechaDesde AND @FechaHasta";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@FechaDesde", DateTime.ParseExact(fechaDesde, "dd-MM-yyyy", CultureInfo.InvariantCulture));
+                    command.Parameters.AddWithValue("@FechaHasta", DateTime.ParseExact(fechaHasta, "dd-MM-yyyy", CultureInfo.InvariantCulture));
+                    SqlDataReader reader = command.ExecuteReader();
+                    string result = $"Total de IVA para el rango de fechas {fechaDesde} - {fechaHasta}:\n";
+
+                    if (reader.Read())
+                    {
+                        result += $"Total IVA: {reader["TotalIva"]}\n";
+                    }
+                    Console.WriteLine(result);
+                    return result;
+                }
+            }
+        }
+
     }
 }
